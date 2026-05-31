@@ -28,6 +28,8 @@ import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import pokefenn.totemic.Totemic;
+import pokefenn.totemic.api.TotemicAPI;
+import pokefenn.totemic.api.music.MusicAPI;
 import pokefenn.totemic.init.ModContent;
 import pokefenn.totemic.init.ModSounds;
 import pokefenn.totemic.lib.Strings;
@@ -72,6 +74,15 @@ public class BlockDrum extends Block implements ITileEntityProvider
             if(!(player instanceof FakePlayer))
             {
                 tileDrum.canPlay = false;
+                int bonusMusic = 0;
+                if (world.isThundering()) {
+                    bonusMusic = 1;
+                } else if (world.isRaining()) {
+                    bonusMusic = world.rand.nextInt(2);
+                }
+                Totemic.api.music().playMusic(world, pos.getX(), pos.getY(), pos.getZ(), player, ModContent.drum, MusicAPI.DEFAULT_RANGE, ModContent.drum.getBaseOutput() + bonusMusic);
+
+
                 Totemic.api.music().playMusic(world, pos, player, ModContent.drum);
                 world.spawnParticle(EnumParticleTypes.NOTE, pos.getX() + 0.5, pos.getY() + 1.2, pos.getZ() + 0.5, 2, 0.0, 0.0, 0.0, 0.0);
                 world.notifyBlockUpdate(pos, state, state, 7);

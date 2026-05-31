@@ -27,6 +27,7 @@ import pokefenn.totemic.lib.WoodVariant;
 public final class ModItems
 {
     public static final ItemFlute flute = null;
+    public static final ItemInfusedFlute infused_flute = null;
     public static final ItemRattle rattle = null;
     public static final ItemJingleDress jingle_dress = null;
     public static final ItemEagleBoneWhistle eagle_bone_whistle = null;
@@ -72,6 +73,7 @@ public final class ModItems
             new ItemMultiTexture(ModBlocks.wooden_pillar_base, ModBlocks.wooden_pillar_base, pillar_mapper).setRegistryName(ModBlocks.wooden_pillar_base.getRegistryName()),
 
             new ItemFlute(),
+            new ItemInfusedFlute(),
             new ItemRattle(),
             new ItemJingleDress(),
             new ItemEagleBoneWhistle(),
@@ -132,7 +134,7 @@ public final class ModItems
         }
 
         setDefaultModel(flute);
-        setModel(flute, 1, flute.getRegistryName().toString());
+        setDefaultModel(infused_flute);
         setDefaultModel(rattle);
         setDefaultModel(jingle_dress);
         setDefaultModel(eagle_bone_whistle);

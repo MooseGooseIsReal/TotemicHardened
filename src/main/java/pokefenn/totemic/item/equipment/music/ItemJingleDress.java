@@ -7,6 +7,7 @@ import javax.annotation.Nullable;
 
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
@@ -16,6 +17,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
@@ -23,6 +25,8 @@ import net.minecraftforge.common.ISpecialArmor;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import pokefenn.totemic.Totemic;
+import pokefenn.totemic.api.TotemicAPI;
+import pokefenn.totemic.api.music.MusicAPI;
 import pokefenn.totemic.init.ModContent;
 import pokefenn.totemic.item.equipment.EquipmentMaterials;
 import pokefenn.totemic.lib.Strings;
@@ -41,6 +45,12 @@ public class ItemJingleDress extends ItemArmor implements ISpecialArmor
     }
 
     @Override
+    public int getMaxDamage(ItemStack stack)
+    {
+        return 72;
+    }
+
+    @Override
     public ArmorProperties getProperties(EntityLivingBase player, @Nonnull ItemStack armor, DamageSource source, double damage, int slot)
     {
         return new ArmorProperties(1, 1, 0);
@@ -56,7 +66,7 @@ public class ItemJingleDress extends ItemArmor implements ISpecialArmor
     @Override
     public void damageArmor(EntityLivingBase entity, @Nonnull ItemStack stack, DamageSource source, int damage, int slot)
     {
-        stack.damageItem(entity.world.rand.nextInt(4), entity);
+        stack.damageItem(1, entity);
     }
 
     @Override
@@ -93,9 +103,18 @@ public class ItemJingleDress extends ItemArmor implements ISpecialArmor
 
     private void playMusic(World world, EntityPlayer player, ItemStack itemStack)
     {
-        Totemic.api.music().playMusic(player, ModContent.jingleDress);
+        int bonusMusic = 0;
+        if (world.isThundering()) {
+            bonusMusic = 1;
+        } else if (world.isRaining()) {
+            bonusMusic = world.rand.nextInt(2);
+        }
+        Totemic.api.music().playMusic(world, player.posX, player.posY, player.posZ, player, ModContent.jingleDress, MusicAPI.DEFAULT_RANGE, ModContent.jingleDress.getBaseOutput() + bonusMusic);
         particlesAllAround((WorldServer)world, player.posX, player.posY, player.posZ);
+        itemStack.damageItem(1, player);
     }
+
+
 
     private void particlesAllAround(WorldServer world, double x, double y, double z)
     {

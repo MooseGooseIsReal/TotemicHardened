@@ -19,9 +19,9 @@ import pokefenn.totemic.api.music.MusicInstrument;
 
 public class CeremonyDanseMacabre extends Ceremony
 {
-    public CeremonyDanseMacabre(String name, int musicNeeded, int maxStartupTime, MusicInstrument... instruments)
+    public CeremonyDanseMacabre(String name, int musicNeeded, int maxStartupTime, int backfireChance, MusicInstrument... instruments)
     {
-        super(name, musicNeeded, maxStartupTime, instruments);
+        super(name, musicNeeded, maxStartupTime, backfireChance, instruments);
     }
 
     @Override

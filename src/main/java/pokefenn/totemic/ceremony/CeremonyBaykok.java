@@ -10,9 +10,9 @@ import pokefenn.totemic.entity.boss.EntityBaykok;
 
 public class CeremonyBaykok extends Ceremony
 {
-    public CeremonyBaykok(String name, int musicNeeded, int maxStartupTime, MusicInstrument... instruments)
+    public CeremonyBaykok(String name, int musicNeeded, int maxStartupTime, int backfireChance, MusicInstrument... instruments)
     {
-        super(name, musicNeeded, maxStartupTime, instruments);
+        super(name, musicNeeded, maxStartupTime, backfireChance, instruments);
     }
 
     @Override

@@ -6,17 +6,22 @@ import javax.annotation.Nullable;
 
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import pokefenn.totemic.Totemic;
+import pokefenn.totemic.api.TotemicAPI;
 import pokefenn.totemic.api.music.ItemInstrument;
+import pokefenn.totemic.api.music.MusicAPI;
 import pokefenn.totemic.init.ModSounds;
 import pokefenn.totemic.lib.Strings;
 
@@ -29,6 +34,7 @@ public class ItemRattle extends ItemInstrument
         setRegistryName(Strings.RATTLE_NAME);
         setUnlocalizedName(Strings.RESOURCE_PREFIX + Strings.RATTLE_NAME);
         setCreativeTab(Totemic.tabsTotem);
+        setMaxDamage(30);
         setMaxStackSize(1);
     }
 

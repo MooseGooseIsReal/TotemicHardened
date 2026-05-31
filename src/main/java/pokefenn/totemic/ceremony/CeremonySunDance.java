@@ -15,9 +15,9 @@ public class CeremonySunDance extends Ceremony
 {
     private static final DamageSource SUN_DANCE_DMG = new DamageSource("totemic.sunDance").setDamageBypassesArmor().setDamageIsAbsolute().setMagicDamage();
 
-    public CeremonySunDance(String name, int musicNeeded, int maxStartupTime, MusicInstrument... selectors)
+    public CeremonySunDance(String name, int musicNeeded, int maxStartupTime, int backfireChance, MusicInstrument... instruments)
     {
-        super(name, musicNeeded, maxStartupTime, selectors);
+        super(name, musicNeeded, maxStartupTime, backfireChance, instruments);
     }
 
     @Override
@@ -38,7 +38,7 @@ public class CeremonySunDance extends Ceremony
         {
             TotemicEntityUtil.getPlayersInRange(world, pos, 8, 8).forEach(player ->
             {
-                player.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 15 * 20, 3));
+                player.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 12 * 20, 3));
                 player.addPotionEffect(new PotionEffect(MobEffects.ABSORPTION, 5 * 60 * 20, 4));
             });
         }

@@ -82,22 +82,7 @@ public class ModelBaldEagle extends ModelBase
         GlStateManager.pushMatrix();
         GlStateManager.translate(0, -0.75F, 0);
         GlStateManager.scale(1.5F, 1.5F, 1.5F);
-
-        if(isChild)
-        {
-            GlStateManager.pushMatrix();
-            GlStateManager.translate(0.0F, 8F * scale, 0.5F * scale);
-            GlStateManager.scale(0.75F, 0.75F, 0.75F);
-            this.head.render(scale);
-            GlStateManager.popMatrix();
-
-            GlStateManager.scale(0.5F, 0.5F, 0.5F);
-            GlStateManager.translate(0.0F, 24.0F * scale, 0.0F);
-        }
-        else
-        {
-            this.head.render(scale);
-        }
+        this.head.render(scale);
 
         this.torso.render(scale);
         this.rightWing.render(scale);
@@ -122,11 +107,7 @@ public class ModelBaldEagle extends ModelBase
         this.leftWing.rotationPointX = -1.5F;
         this.rightWing.rotationPointX = 1.5F;
 
-        if(this.state == State.SITTING)
-        {
-            return;
-        }
-        else if(this.state == State.STANDING)
+        if(this.state == State.STANDING)
         {
             this.leftLeg.rotateAngleX += MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
             this.rightLeg.rotateAngleX += MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
@@ -160,23 +141,7 @@ public class ModelBaldEagle extends ModelBase
         if(entity instanceof EntityBaldEagle)
         {
             EntityBaldEagle eagle = (EntityBaldEagle) entity;
-            if(eagle.isSitting())
-            {
-                this.head.rotationPointY = 16.9F;
-                this.tailFeathers.rotateAngleX = 1.5388988F;
-                this.tailFeathers.rotationPointY = 22.97F;
-                this.torso.rotationPointY = 17.9F;
-                this.rightWing.rotateAngleZ = -0.0873F;
-                this.rightWing.rotationPointY = 18.84F;
-                this.leftWing.rotateAngleZ = 0.0873F;
-                this.leftWing.rotationPointY = 18.84F;
-                this.leftLeg.rotationPointY += 1F;
-                this.rightLeg.rotationPointY += 1F;
-                this.leftLeg.rotateAngleX += 1F;
-                this.rightLeg.rotateAngleX += 1F;
-                this.state = State.SITTING;
-            }
-            else if(eagle.isFlying())
+            if(eagle.isFlying())
             {
                 this.leftLeg.rotateAngleX += ((float)Math.PI * 2F / 9F);
                 this.rightLeg.rotateAngleX += ((float)Math.PI * 2F / 9F);
@@ -204,6 +169,6 @@ public class ModelBaldEagle extends ModelBase
 
     private static enum State
     {
-        FLYING, STANDING, SITTING;
+        FLYING, STANDING;
     }
 }

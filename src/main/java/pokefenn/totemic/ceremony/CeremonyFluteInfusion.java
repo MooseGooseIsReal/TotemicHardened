@@ -14,9 +14,9 @@ import pokefenn.totemic.util.EntityUtil;
 
 public class CeremonyFluteInfusion extends Ceremony
 {
-    public CeremonyFluteInfusion(String name, int musicNeeded, int maxStartupTime, MusicInstrument... instruments)
+    public CeremonyFluteInfusion(String name, int musicNeeded, int maxStartupTime, int backfireChance, MusicInstrument... instruments)
     {
-        super(name, musicNeeded, maxStartupTime, instruments);
+        super(name, musicNeeded, maxStartupTime, backfireChance, instruments);
     }
 
     @Override
@@ -31,7 +31,7 @@ public class CeremonyFluteInfusion extends Ceremony
         {
             if(entity.getItem().getItem() == ModItems.flute)
             {
-                EntityUtil.dropItem(world, entity.posX, entity.posY, entity.posZ, new ItemStack(ModItems.flute, 1, 1));
+                EntityUtil.dropItem(world, entity.posX, entity.posY, entity.posZ, new ItemStack(ModItems.infused_flute));
                 entity.setDead();
                 //cane = 0;
             }
@@ -42,7 +42,7 @@ public class CeremonyFluteInfusion extends Ceremony
             for(int i = 0; i < inv.getSizeInventory(); i++)
             {
                 if(inv.getStackInSlot(i).getItem() == ModItems.flute)
-                    inv.setInventorySlotContents(i, new ItemStack(ModItems.flute, 1, 1));
+                    inv.setInventorySlotContents(i, new ItemStack(ModItems.infused_flute));
             }
             player.inventoryContainer.detectAndSendChanges();
         });

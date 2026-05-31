@@ -21,6 +21,7 @@ import pokefenn.totemic.totem.TotemEffectOcelot;
 public final class ModContent
 {
     public static MusicInstrument flute;
+    public static MusicInstrument infusedFlute;
     public static MusicInstrument drum;
     public static MusicInstrument windChime;
     public static MusicInstrument jingleDress;
@@ -61,6 +62,7 @@ public final class ModContent
     {
         event.getRegistry().registerAll(
             flute = new MusicInstrument("totemic:flute", 3, 50).setItem(new ItemStack(ModItems.flute)).setRegistryName("flute"),
+            infusedFlute = new MusicInstrument("totemic:infusedFlute", 4, 50).setItem(new ItemStack(ModItems.infused_flute)).setRegistryName("infused_flute"),
             drum = new MusicInstrument("totemic:drum", 4, 55).setItem(new ItemStack(ModBlocks.drum)).setRegistryName("drum"),
             windChime = new MusicInstrument("totemic:windChime", 2, 25).setItem(new ItemStack(ModBlocks.wind_chime)).setRegistryName("wind_chime"),
             jingleDress = new MusicInstrument("totemic:jingleDress", 3, 25).setItem(new ItemStack(ModItems.jingle_dress)).setRegistryName("jingle_dress"),
@@ -68,6 +70,7 @@ public final class ModContent
             eagleBoneWhistle = new MusicInstrument("totemic:eagleBoneWhistle", 6, 60).setItem(new ItemStack(ModItems.eagle_bone_whistle)).setRegistryName("eagle_bone_whistle"),
             netherPipe = new MusicInstrument("totemic:netherPipe", 4, 65).setItem(new ItemStack(ModItems.nether_pipe)).setRegistryName("nether_pipe"));
         ModItems.flute.setInstrument(flute);
+        ModItems.infused_flute.setInstrument(infusedFlute);
         ModItems.rattle.setInstrument(rattle);
         ModItems.eagle_bone_whistle.setInstrument(eagleBoneWhistle);
         ModItems.nether_pipe.setInstrument(netherPipe);
@@ -110,32 +113,32 @@ public final class ModContent
         //245: Flute + Drum + Rattle + Eagle-Bone Whistle + Jingle Dress
         //270: Flute + Drum + Rattle + Eagle-Bone Whistle + Jingle Dress + full Wind Chime
         event.getRegistry().registerAll(
-            warDance = new CeremonyWarDance("totemic:warDance", 75, 20 * 20,
+            warDance = new CeremonyWarDance("totemic:warDance", 100, 20 * 20, 60,
                     drum, drum).setRegistryName("war_dance"),
-            depths = new CeremonyDepths("totemic:depths", 75, 20 * 20,
+            depths = new CeremonyDepths("totemic:depths", 75, 20 * 20, 5,
                     flute, flute).setRegistryName("depths"),
-            fertility = new CeremonyFertility("totemic:fertility", 88, 23 * 20,
+            fertility = new CeremonyFertility("totemic:fertility", 88, 23 * 20, 20,
                     flute, drum).setRegistryName("fertility"),
-            zaphkielWaltz = new CeremonyZaphkielWaltz("totemic:zaphkielWaltz", 112, 20 * 20,
+            zaphkielWaltz = new CeremonyZaphkielWaltz("totemic:zaphkielWaltz", 112, 20 * 20, 20,
                     windChime, flute).setRegistryName("zaphkiel_waltz"),
-            buffaloDance = new CeremonyBuffaloDance("totemic:buffaloDance", 123, 24 * 20,
+            buffaloDance = new CeremonyBuffaloDance("totemic:buffaloDance", 123, 24 * 20, 30,
                     drum, windChime).setRegistryName("buffalo_dance"),
-            rainDance = new CeremonyRain(true, "totemic:rainDance", 183, 26 * 20,
+            rainDance = new CeremonyRain(false, "totemic:rainDance", 183, 26 * 20, 20,
                     drum, rattle).setRegistryName("rain_dance"),
-            drought = new CeremonyRain(false, "totemic:drought", 183, 26 * 20,
+            drought = new CeremonyRain(true, "totemic:drought", 189, 26 * 20, 20,
                     rattle, drum).setRegistryName("drought"),
-            fluteCeremony = new CeremonyFluteInfusion("totemic:flute", 189, 28 * 20,
+            fluteCeremony = new CeremonyFluteInfusion("totemic:flute", 194, 28 * 20, 40,
                     flute, rattle).setRegistryName("flute"),
-            eagleDance = new CeremonyEagleDance("totemic:eagleDance", 193, 25 * 20,
+            eagleDance = new CeremonyEagleDance("totemic:eagleDance", 230, 25 * 20, 30,
                     rattle, windChime).setRegistryName("eagle_dance"),
-            cleansing = new CeremonyCleansing("totemic:cleansing", 245, 30 * 20,
+            cleansing = new CeremonyCleansing("totemic:cleansing", 245, 30 * 20, 40,
                     eagleBoneWhistle, flute).setRegistryName("cleansing"),
-            baykokSummon = new CeremonyBaykok("totemic:baykokSummon", 251, 32 * 20,
+            baykokSummon = new CeremonyBaykok("totemic:baykokSummon", 270, 32 * 20, 100,
                     windChime, eagleBoneWhistle).setRegistryName("baykok_summon"),
-            sunDance = new CeremonySunDance("totemic:sunDance", 247, 31 * 20,
+            sunDance = new CeremonySunDance("totemic:sunDance", 258, 31 * 20, 20,
                     drum, eagleBoneWhistle).setRegistryName("sun_dance"),
-            danseMacabre = new CeremonyDanseMacabre("totemic:danseMacabre", 249, 32 * 20,
-                eagleBoneWhistle, windChime).setRegistryName("danseMacabre"));
+            danseMacabre = new CeremonyDanseMacabre("totemic:danseMacabre", 290, 32 * 20, 80,
+                eagleBoneWhistle, infusedFlute).setRegistryName("danseMacabre"));
     }
 
     @SubscribeEvent

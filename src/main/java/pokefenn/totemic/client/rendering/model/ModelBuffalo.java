@@ -189,12 +189,6 @@ public class ModelBuffalo extends ModelBase
         GlStateManager.scale(1.5F, 1.5F, 1.5F);
         setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entity);
 
-        if(isChild)
-        {
-            GlStateManager.pushMatrix();
-            GlStateManager.translate(0.0F, 6.0F * scale, 4.0F * scale);
-        }
-
         head.render(scale);
         hornbase1.render(scale);
         hornbase2.render(scale);
@@ -204,14 +198,6 @@ public class ModelBuffalo extends ModelBase
         horn4.render(scale);
         horn5.render(scale);
         horn6.render(scale);
-
-        if(isChild)
-        {
-            float childScale = 0.5F;
-            GlStateManager.popMatrix();
-            GlStateManager.scale(childScale, childScale, childScale);
-            GlStateManager.translate(0.0F, 24.0F * scale, 0.0F);
-        }
 
         tailhairs.render(scale);
         hoof1.render(scale);

@@ -16,6 +16,6 @@ public class TotemEffectCow extends TotemEffectPotion
     protected void applyTo(boolean isMedicineBag, EntityPlayer player, int time, int amplifier)
     {
         super.applyTo(isMedicineBag, player, time, amplifier);
-        player.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, time, 0, true, false));
+        player.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, time, 1, true, false));
     }
 }

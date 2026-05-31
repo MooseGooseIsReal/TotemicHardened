@@ -29,9 +29,9 @@ public class CeremonyFertility extends Ceremony
     //Weak set to keep track which villagers have been affected by the ceremony
     private static final Set<EntityVillager> matedVillagers = Collections.newSetFromMap(new WeakHashMap<>());
 
-    public CeremonyFertility(String name, int musicNeeded, int maxStartupTime, MusicInstrument... instruments)
+    public CeremonyFertility(String name, int musicNeeded, int maxStartupTime, int backfireChance, MusicInstrument... instruments)
     {
-        super(name, musicNeeded, maxStartupTime, instruments);
+        super(name, musicNeeded, maxStartupTime, backfireChance, instruments);
     }
 
     @Override

@@ -11,9 +11,9 @@ import pokefenn.totemic.api.music.MusicInstrument;
 
 public class CeremonyWarDance extends Ceremony
 {
-    public CeremonyWarDance(String name, int musicNeeded, int maxStartupTime, MusicInstrument... instruments)
+    public CeremonyWarDance(String name, int musicNeeded, int maxStartupTime, int backfireChance, MusicInstrument... instruments)
     {
-        super(name, musicNeeded, maxStartupTime, instruments);
+        super(name, musicNeeded, maxStartupTime, backfireChance, instruments);
     }
 
     @Override
@@ -24,8 +24,7 @@ public class CeremonyWarDance extends Ceremony
 
         TotemicEntityUtil.getPlayersInRange(world, pos, 8, 8).forEach(entity ->
         {
-            entity.addPotionEffect(new PotionEffect(MobEffects.STRENGTH, 20 * (60 * 3), 1));
-            entity.addPotionEffect(new PotionEffect(MobEffects.SPEED, 20 * (60 * 3), 1));
+            entity.addPotionEffect(new PotionEffect(MobEffects.STRENGTH, 20 * (60), 1));
         });
     }
 }

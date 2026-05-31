@@ -1,12 +1,5 @@
 package pokefenn.totemic.item.equipment.music;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
-import java.util.WeakHashMap;
-
-import javax.annotation.Nullable;
-
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
@@ -33,20 +26,26 @@ import pokefenn.totemic.init.ModSounds;
 import pokefenn.totemic.lib.Strings;
 import pokefenn.totemic.util.EntityUtil;
 
-public class ItemFlute extends ItemInstrument
+import javax.annotation.Nullable;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
+import java.util.WeakHashMap;
+
+public class ItemInfusedFlute extends ItemInstrument
 {
     //Entities that have been tempted by the infused flute get stored in this weak set
     //so as to avoid adding the same AI task multiple times
     private final Set<Entity> temptedEntities = Collections.newSetFromMap(new WeakHashMap<>());
 
-    public ItemFlute()
+    public ItemInfusedFlute()
     {
         setSound(ModSounds.flute);
 
-        setRegistryName(Strings.FLUTE_NAME);
-        setUnlocalizedName(Strings.RESOURCE_PREFIX + Strings.FLUTE_NAME);
+        setRegistryName("infused_flute");
+        setUnlocalizedName(Strings.RESOURCE_PREFIX + "infused_flute");
         setCreativeTab(Totemic.tabsTotem);
-        setMaxDamage(45);
+        setMaxDamage(85);
         setMaxStackSize(1);
     }
 
@@ -54,6 +53,7 @@ public class ItemFlute extends ItemInstrument
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, @Nullable World world, List<String> tooltip, ITooltipFlag flag)
     {
+        tooltip.add(I18n.format(getUnlocalizedName() +".tooltip1"));
         tooltip.add(I18n.format(getUnlocalizedName() + ".tooltip0"));
     }
 
@@ -64,6 +64,9 @@ public class ItemFlute extends ItemInstrument
         if (!world.isRemote)
         {
             useInstrument(stack, player, 20);
+
+            if (!player.isSneaking())
+                temptEntities(world, player.posX, player.posY, player.posZ);
         }
         return new ActionResult<>(EnumActionResult.SUCCESS, stack);
     }
@@ -72,13 +75,26 @@ public class ItemFlute extends ItemInstrument
     @SideOnly(Side.CLIENT)
     public EnumRarity getRarity(ItemStack stack)
     {
-        return EnumRarity.COMMON;
+        return EnumRarity.UNCOMMON;
+    }
+
+    private void temptEntities(World world, double x, double y, double z)
+    {
+        for (EntityLiving entity : EntityUtil.listEntitiesInRange(EntityLiving.class, world, x, y, z, 2, 2,
+                entity -> ((entity instanceof EntityAnimal && entity.getNavigator() instanceof PathNavigateGround) || entity instanceof EntityVillager)
+                          && !temptedEntities.contains(entity)))
+        {
+            double speed = (entity instanceof EntityAnimal) ? 1 : 0.5;
+            entity.targetTasks.addTask(5, new EntityAITempt((EntityCreature) entity, speed, this, false));
+
+            temptedEntities.add(entity);
+        }
     }
 
     @SideOnly(Side.CLIENT)
     @Override
     public boolean hasEffect(ItemStack stack)
     {
-        return false;
+        return true;
     }
 }
